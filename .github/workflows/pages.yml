@@ -41,6 +41,8 @@ jobs:
           else
             echo "VITE_BASE=/${REPO_NAME}/" >> $GITHUB_ENV
           fi
+          # Configure resume link to Google Drive
+          echo "VITE_RESUME_URL=https://drive.google.com/file/d/1zXjdyHpCTGr9LxEHDhSiqXVlL0BakR6H/view?usp=share_link" >> $GITHUB_ENV
           npm run build
           # Create 404.html for SPA routing fallback
           cp dist/index.html dist/404.html
