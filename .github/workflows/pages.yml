@@ -32,11 +32,15 @@ jobs:
         run: npm ci
 
       - name: Build
-        env:
-          # Set base for Vite if publishing to user/organization site root
-          # For project pages, set VITE_BASE to "/<repo-name>/"
-          VITE_BASE: "/"
         run: |
+          # Compute correct Vite base path for Pages
+          REPO_NAME="${{ github.event.repository.name }}"
+          OWNER="${{ github.repository_owner }}"
+          if [ "$REPO_NAME" = "${OWNER}.github.io" ]; then
+            echo "VITE_BASE=/" >> $GITHUB_ENV
+          else
+            echo "VITE_BASE=/${REPO_NAME}/" >> $GITHUB_ENV
+          fi
           npm run build
           # Create 404.html for SPA routing fallback
           cp dist/index.html dist/404.html
