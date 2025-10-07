@@ -5,6 +5,10 @@ import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
+  // Set base path so built assets resolve correctly on GitHub Pages.
+  // Defaults to "/" which is correct for user/org pages like vid19.github.io.
+  // Can be overridden in CI by setting VITE_BASE environment variable.
+  base: process.env.VITE_BASE || "/",
   server: {
     host: "::",
     port: 8080,
