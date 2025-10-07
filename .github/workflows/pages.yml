@@ -37,12 +37,12 @@ jobs:
           REPO_NAME="${{ github.event.repository.name }}"
           OWNER="${{ github.repository_owner }}"
           if [ "$REPO_NAME" = "${OWNER}.github.io" ]; then
-            echo "VITE_BASE=/" >> $GITHUB_ENV
+            export VITE_BASE="/"
           else
-            echo "VITE_BASE=/${REPO_NAME}/" >> $GITHUB_ENV
+            export VITE_BASE="/${REPO_NAME}/"
           fi
-          # Configure resume link to Google Drive
-          echo "VITE_RESUME_URL=https://drive.google.com/file/d/1zXjdyHpCTGr9LxEHDhSiqXVlL0BakR6H/view?usp=share_link" >> $GITHUB_ENV
+          # Configure resume link to Google Drive for this build
+          export VITE_RESUME_URL="https://drive.google.com/file/d/1zXjdyHpCTGr9LxEHDhSiqXVlL0BakR6H/view?usp=share_link"
           npm run build
           # Create 404.html for SPA routing fallback
           cp dist/index.html dist/404.html
